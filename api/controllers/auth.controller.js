@@ -3,6 +3,7 @@ import bcryptjs from 'bcryptjs';
 import { errorHandler } from '../utils/error.js';
 
 export const signup = async (req, res, next) => {
+  // Get the username, email and password from the request body
   const { username, email, password } = req.body;
 
   if (
@@ -17,6 +18,8 @@ export const signup = async (req, res, next) => {
   }
   const hashPassword = bcryptjs.hashSync(password, 10);
 
+  // User object to be saved in the database  with the hashed password
+  // User came from the User model imported from user.model.js
   const newUser = new User({ username, email, password: hashPassword });
 
   try {
